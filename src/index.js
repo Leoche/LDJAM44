@@ -28,4 +28,4 @@ game.scene.add('menu', Menu);
 game.scene.add('leo', Leo);
 game.scene.add('paul', Paul);
 
-game.scene.start("paul", {level: "paul"});
+game.scene.start("leo", {level: "leo"});
