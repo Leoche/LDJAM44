@@ -14,6 +14,7 @@ export class Leo extends Phaser.Scene {
   }
 
   create() {
+    this.gamepad = null;
     this.map = this.add.tilemap("map");
     var tileset = this.map.addTilesetImage('map', 'tiles');
     this.backgroundLayer = this.map.createStaticLayer("terrain", tileset);
@@ -30,9 +31,25 @@ export class Leo extends Phaser.Scene {
     this.cameras.main.startFollow(this.player, false, 0.5, 0.5);
     this.cameras.main.zoom = 3
     this.initControls();
+
+    console.log(this.input.gamepad);
+    console.log(this.input.gamepad.gamepads);
+
+    if (this.input.gamepad.gamepads.length != 0){
+      this.gamepad = this.input.gamepad.gamepads[this.input.gamepad.gamepads.length-1];
+      console.log('de');
+    }
+    this.input.gamepad.on('down', (pad, button, index) => {
+      this.initControlsGamepad(pad, button, index)
+      console.log('de');
+    })
+    
+  }
+  initControlsGamepad(gamepad, button, index) {
+    this.gamepad = gamepad;
+      console.log('de');
   }
   initControls() {
-    this.gamepad = null;
     this.keys = {
       left: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT),
       right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT),

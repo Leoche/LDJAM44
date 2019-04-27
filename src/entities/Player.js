@@ -15,6 +15,7 @@ export class Player extends Phaser.GameObjects.Sprite {
             'left':4,
             'right':0,
         }
+        this.speed = 60;
         this.cooldown = 0;
         this.shootcooldown = 10;
         this.accuracy = 10;
@@ -37,15 +38,18 @@ export class Player extends Phaser.GameObjects.Sprite {
     }
     update() {
         //DIrection 
+        this.body.setVelocityX(0);
+        this.body.setVelocityY(0);
         let direction = null
-        if (this.scene   .keys.left.isDown || (this.scene.gamepad && (this.scene.gamepad.left || this.scene.gamepad.axes[0].getValue() < -0.5))) {
-          this.direction = 'left'
-        } else if (this.scene.keys.right.isDown || (this.scene.gamepad && (this.scene.gamepad.right || this.scene.gamepad.axes[0].getValue() > 0.5))) {
-          this.direction = 'right'
-        } else if (this.scene.keys.up.isDown || (this.scene.gamepad && (this.scene.gamepad.up || this.scene.gamepad.axes[1].getValue() < -0.5))) {
-          this.direction = 'up'
+        if (this.scene.keys.left.isDown || (this.scene.gamepad && (this.scene.gamepad.left || this.scene.gamepad.axes[0].getValue() < -0.5))) {
+          this.body.setVelocityX(-this.speed);
+        }else if (this.scene.keys.right.isDown || (this.scene.gamepad && (this.scene.gamepad.right || this.scene.gamepad.axes[0].getValue() > 0.5))) {
+          this.body.setVelocityX(this.speed);
+        }
+        if (this.scene.keys.up.isDown || (this.scene.gamepad && (this.scene.gamepad.up || this.scene.gamepad.axes[1].getValue() < -0.5))) {
+          this.body.setVelocityY(-this.speed);
         } else if (this.scene.keys.down.isDown || (this.scene.gamepad && (this.scene.gamepad.down || this.scene.gamepad.axes[1].getValue() > 0.5))) {
-          this.direction = 'down'
+          this.body.setVelocityY(this.speed);
         }
 
         if(this.cooldown > 0) this.cooldown--;
@@ -60,7 +64,7 @@ export class Player extends Phaser.GameObjects.Sprite {
           this.scene.physics.add.existing(coin);
           var velocity = new Phaser.Math.Vector2();
           this.scene.physics.velocityFromRotation(this._angle, 600, velocity);
-          coin .body.setVelocity(velocity.x, velocity.y);
+          coin.body.setVelocity(velocity.x, velocity.y);
         }
     }
 
