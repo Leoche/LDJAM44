@@ -16,8 +16,7 @@ export class Player extends Phaser.GameObjects.Sprite {
         }
     }
     update() {
-        super.update();
-        this.setFrame(2);
+        this.setFrame(this.atlas[this.direction]);
     }
 
 }

@@ -38,5 +38,6 @@ export class Leo extends Phaser.Scene {
     } else if (this.keys.down.isDown || (this.gamepad && (this.gamepad.down || this.gamepad.axes[1].getValue() > 0.5))) {
       this.player.direction = 'down'
     }
+    this.player.update();
   }
 }
