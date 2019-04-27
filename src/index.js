@@ -3,8 +3,8 @@ import 'phaser';
 import { Menu } from './scenes/Menu';
 
 const gameConfig = {
-  width: 600,
-  height: 600,
+  width: 1300,
+  height: 700,
   input: {
       gamepad: true
   },

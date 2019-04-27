@@ -8,7 +8,7 @@ export class Menu extends Phaser.Scene {
 
   create() {
     var sprite = this.add.sprite(300, 300, 'bg');
-    sprite.setScale(4)
+    sprite.setScale(8)
   }
   update() {
   }
