@@ -10,7 +10,7 @@ export class Leo extends Phaser.Scene {
     this.load.spritesheet('tileset', 'assets/placeholder/tileset.png', { frameWidth: 16, frameHeight: 16})
     this.load.spritesheet('enemi','assets/placeholder/character.png',{ frameWidth: 16, frameHeight: 16})
     this.load.image('tiles', 'assets/placeholder/tileset.png');
-    this.load.tilemapTiledJSON('map', 'assets/tilemaps/map1.json');
+    this.load.tilemapTiledJSON('map', 'assets/tilemaps/map2.json');
   }
 
   create() {
