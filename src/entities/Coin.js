@@ -7,7 +7,7 @@ export class Coin extends Phaser.GameObjects.Sprite {
         this.setTexture('tileset');
         this.setPosition(x, y);
         this.setOrigin(0, 0);
-        this.setFrame(86);
+        this.setFrame(86); 
     }
     update() {
     }

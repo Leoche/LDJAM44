@@ -19,12 +19,12 @@ export class Player extends Phaser.GameObjects.Sprite {
         this.cooldown = 0;
         this.shootcooldown = 10;
         this.accuracy = 10;
-        this.deceleration = 3;
+        this.deceleration = 7;
         scene.input.on('pointermove', (pointer) => {
             pointer.x = pointer.x + scene.cameras.main._scrollX;
             pointer.y = pointer.y + scene.cameras.main._scrollY; 
             var angle = Phaser.Math.Angle.BetweenPoints(this, pointer);
-             if((Math.abs(angle) > 0 && Math.abs(angle) < Math.PI/4)) {
+             if((Math.abs(angle) > 0 && Math.abs(angle)  < Math.PI/4)) {
               this.direction = "right";
             } else if((Math.abs(angle) > 3*Math.PI/4 && Math.abs(angle) < Math.PI)) {
               this.direction = "left";
@@ -56,21 +56,21 @@ export class Player extends Phaser.GameObjects.Sprite {
             }
         }
         let direction = null
-        if (this.scene.keys.left.isDown || (this.scene.gamepad && (this.scene.gamepad.left || this.scene.gamepad.axes[0].getValue() < -0.5))) {
+        if (this.scene.keys.left.isDown || this.scene.keys.q.isDown || (this.scene.gamepad && (this.scene.gamepad.left || this.scene.gamepad.axes[0].getValue() < -0.5))) {
           this.body.setVelocityX(-this.speed);
-        }else if (this.scene.keys.right.isDown || (this.scene.gamepad && (this.scene.gamepad.right || this.scene.gamepad.axes[0].getValue() > 0.5))) {
+        }else if (this.scene.keys.right.isDown || this.scene.keys.d.isDown || (this.scene.gamepad && (this.scene.gamepad.right || this.scene.gamepad.axes[0].getValue() > 0.5))) {
           this.body.setVelocityX(this.speed);
         }
-        if (this.scene.keys.up.isDown || (this.scene.gamepad && (this.scene.gamepad.up || this.scene.gamepad.axes[1].getValue() < -0.5))) {
+        if (this.scene.keys.up.isDown || this.scene.keys.z.isDown || (this.scene.gamepad && (this.scene.gamepad.up || this.scene.gamepad.axes[1].getValue() < -0.5))) {
           this.body.setVelocityY(-this.speed);
-        } else if (this.scene.keys.down.isDown || (this.scene.gamepad && (this.scene.gamepad.down || this.scene.gamepad.axes[1].getValue() > 0.5))) {
+        } else if (this.scene.keys.down.isDown || this.scene.keys.s.isDown || (this.scene.gamepad && (this.scene.gamepad.down || this.scene.gamepad.axes[1].getValue() > 0.5))) {
           this.body.setVelocityY(this.speed);
         }
 
         if(this.cooldown > 0) this.cooldown--;
         this.setFrame(this.atlas[this.direction]);
 
-        if (this.cooldown == 0 && this.scene.keys.space.isDown) {
+        if (this.cooldown == 0 && this.scene.input.activePointer.isDown) {
             console.log(4);
           this.cooldown = this.shootcooldown;
           let coin = new Coin(this.scene, this.body.x,this.body.y);
@@ -80,6 +80,11 @@ export class Player extends Phaser.GameObjects.Sprite {
           var velocity = new Phaser.Math.Vector2();
           this.scene.physics.velocityFromRotation(this._angle, 600, velocity);
           coin.body.setVelocity(velocity.x, velocity.y);
+          coin.body.bounce.setTo(.8 , .8 );
+            coin.body.setDrag(900,900);
+          this.scene.physics.add.collider(coin, this.scene.collidelayer, () => {
+
+          });
         }
     }
 

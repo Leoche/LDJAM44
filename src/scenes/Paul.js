@@ -18,15 +18,15 @@ export class Paul extends Phaser.Scene {
     this.map = this.add.tilemap("map");
     var tileset = this.map.addTilesetImage('map', 'tiles');
     this.backgroundLayer = this.map.createStaticLayer("terrain", tileset);
-    let layer = this.map.createStaticLayer('collide', tileset);
-    layer.visible = false;
+    this.collidelayer = this.map.createStaticLayer('collide', tileset);
+    this.collidelayer.visible = false;
     this.map.setCollision([ 95 ]);
 
 
     this.player = new Player(this, 200, 200);
     this.coins = [];
     this.add.existing(this.player);
-    this.physics.add.collider(this.player, layer);
+    this.physics.add.collider(this.player, this.collidelayer);
 
     this.enemi = new Enemi(this, 220,220);
     this.add.existing(this.enemi);
@@ -60,6 +60,10 @@ export class Paul extends Phaser.Scene {
       right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT),
       up: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP),
       down: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN),
+      z: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z),
+      q: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q),
+      s: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S),
+      d: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
       restart: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R),
       space: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
     }
