@@ -6,8 +6,8 @@ export class Player extends Phaser.GameObjects.Sprite {
 
         this.setTexture('hero');
         this.setPosition(x, y);
-        this.setOrigin(0, 0);
         this.direction = 'up';
+        this._angle = 0;
         this.atlas = {
             'up':8,
             'down':12,
