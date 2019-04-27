@@ -4,7 +4,7 @@ export class Paul extends Phaser.Scene {
   }
   preload() {
     this.load.image('bg', 'assets/bg.png');
-    this.load.image('player', 'assets/placeholder/hero.png');
+    this.load.sprite('player', 'assets/placeholder/hero.png');
   }
 
   create() {
