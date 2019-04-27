@@ -1,6 +1,8 @@
 import 'phaser';
 
 import { Menu } from './scenes/Menu';
+import { Leo } from './scenes/Leo';
+import { Paul } from './scenes/Paul';
 
 const gameConfig = {
   width: 1300,
@@ -16,4 +18,6 @@ const gameConfig = {
 
 var game = new Phaser.Game(gameConfig);
 game.scene.add('menu', Menu);
-game.scene.start("menu", {level: "menu"});
+game.scene.add('leo', Leo);
+game.scene.add('paul', Paul);
+game.scene.start("leo", {level: "leo"});
