@@ -10,7 +10,7 @@ export class Paul extends Phaser.Scene {
     this.load.spritesheet('tileset', 'assets/placeholder/tileset.png', { frameWidth: 16, frameHeight: 16})
     this.load.spritesheet('enemi','assets/placeholder/character.png',{ frameWidth: 16, frameHeight: 16})
     this.load.image('tiles', 'assets/placeholder/tileset.png');
-    this.load.tilemapTiledJSON('map', 'assets/tilemaps/map2.json');
+    this.load.tilemapTiledJSON('map', 'assets/Tilemaps/map2.json');
   }
 
   create() {
@@ -18,11 +18,15 @@ export class Paul extends Phaser.Scene {
     this.map = this.add.tilemap("map");
     var tileset = this.map.addTilesetImage('map', 'tiles');
     this.backgroundLayer = this.map.createStaticLayer("terrain", tileset);
+    let layer = this.map.createStaticLayer('collide', tileset);
+    layer.visible = false;
+    this.map.setCollision([ 95 ]);
 
 
     this.player = new Player(this, 200, 200);
     this.coins = [];
     this.add.existing(this.player);
+    this.physics.add.collider(this.player, layer);
 
     this.enemi = new Enemi(this, 220,220);
     this.add.existing(this.enemi);

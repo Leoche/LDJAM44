@@ -15,10 +15,11 @@ export class Player extends Phaser.GameObjects.Sprite {
             'left':4,
             'right':0,
         }
-        this.speed = 60;
+        this.speed = 90;
         this.cooldown = 0;
         this.shootcooldown = 10;
         this.accuracy = 10;
+        this.deceleration = 3;
         scene.input.on('pointermove', (pointer) => {
             pointer.x = pointer.x + scene.cameras.main._scrollX;
             pointer.y = pointer.y + scene.cameras.main._scrollY; 
@@ -38,8 +39,22 @@ export class Player extends Phaser.GameObjects.Sprite {
     }
     update() {
         //DIrection 
-        this.body.setVelocityX(0);
-        this.body.setVelocityY(0);
+        if(Math.abs(this.body.velocity.x) <  2) this.body.velocity.x = 0;
+        if(Math.abs(this.body.velocity.y) <  2) this.body.velocity.y = 0;
+        if(Math.abs(this.body.velocity.x) != 0) {
+            if(this.body.velocity.x<0) {
+                this.body.velocity.x += this.deceleration;
+            } else {
+                this.body.velocity.x -= this.deceleration;
+            }
+        }
+        if(Math.abs(this.body.velocity.y) != 0) {
+            if(this.body.velocity.y<0) {
+                this.body.velocity.y += this.deceleration;
+            } else {
+                this.body.velocity.y -= this.deceleration;
+            }
+        }
         let direction = null
         if (this.scene.keys.left.isDown || (this.scene.gamepad && (this.scene.gamepad.left || this.scene.gamepad.axes[0].getValue() < -0.5))) {
           this.body.setVelocityX(-this.speed);
